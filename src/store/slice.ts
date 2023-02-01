@@ -1,5 +1,6 @@
 import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit';
 import { InitialState } from '../interface';
+import { getHomePageVideo } from './reducers/getHomePageVideos';
 
 const initialState: InitialState = {
 	videos: [],
@@ -15,7 +16,12 @@ const YoutubeSlice = createSlice({
   initialState,
   reducers: {},
   // 追加のreducer
-  extraReducers: (builder) => {},
+  extraReducers: (builder: ActionReducerMapBuilder<InitialState>) => {
+		builder.addCase(getHomePageVideo.fulfilled, (state, action) => {
+			state.videos = action.payload.parsedData;
+			state.nextPageToken = action.payload.nextPageToken;
+		})
+	},
 })
 
 export default YoutubeSlice.reducer;
