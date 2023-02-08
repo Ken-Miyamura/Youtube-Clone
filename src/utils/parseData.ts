@@ -4,10 +4,8 @@ import {
   parseVideoDuration,
   timeSince,
 } from "./index";
-import { YOUTUBE_API_URL } from "./const";
+import { API_KEY, YOUTUBE_API_URL } from "./const";
 import { HomePageVideos } from "../interface";
-
-const API_KEY = import.meta.env.VITE_REACT_APP_YOUTUBE_DATA_API_KEY;
 
 export const parseData = async (items: any[]) => {
   try {

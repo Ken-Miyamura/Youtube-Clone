@@ -4,9 +4,24 @@ import { BsYoutube, BsBell } from "react-icons/bs";
 import { BiVideoPlus } from "react-icons/bi";
 import { TiMicrophone } from "react-icons/ti";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../store/hook';
+import { changeSearchItem, clearSearchItem, clearVideos } from '../store/slice';
+import { getSearchPageVideos } from '../store/reducers/getSearchPageVideos';
 
 const Navbar = () => {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const searchItem = useAppSelector((state) => state.youtubeApp.searchItem);
+
+  const handleSearch = () => {
+    if (location.pathname !== "/search") navigate("/search");
+    dispatch(clearVideos());
+    dispatch(getSearchPageVideos(false));
+  };
+
   return (
     <div className="flex justify-between items-center px-14 h-14 bg-[#212121] opacity-95 sticky top-0 z-50">
       <div className="flex gap-8 items-center text-2xl">
@@ -21,12 +36,25 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex items-center justify-center gap-5">
-        <form action="">
+        <form 
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch();
+          }}
+        >
           <div className="flex items-center bg-zinc-900 h-10 pl-4 pr-0">
             <div className="flex gap-4 items-center pr-5">
               <AiOutlineSearch className="text-xl" />
-              <input type="text" className="w-96 bg-zinc-900 focus:outline-none border-none" />
-              <AiOutlineClose className="text-xl cursor-pointer" />
+              <input 
+                type="text" 
+                className="w-96 bg-zinc-900 focus:outline-none border-none"
+                value={searchItem}
+                onChange={(e) => dispatch(changeSearchItem(e.target.value))}
+              />
+              <AiOutlineClose 
+                className={`text-xl cursor-pointer ${!searchItem ? "invisible" : "visible"}`} 
+                onClick={() => dispatch(clearSearchItem())}
+              />
             </div>
             <button className="h-10 w-16 flex items-center justify-center bg-zinc-800">
               <AiOutlineSearch className="text-xl" />
