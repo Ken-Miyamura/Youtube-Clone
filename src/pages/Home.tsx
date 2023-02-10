@@ -6,7 +6,7 @@ import Sidebar from '../components/Sidebar'
 import Spinner from '../components/Spinner';
 import { HomePageVideos } from '../interface';
 import { useAppDispatch, useAppSelector } from '../store/hook';
-import { getHomePageVideo } from '../store/reducers/getHomePageVideos';
+import { getHomePageVideos } from '../store/reducers/getHomePageVideos';
 import { clearVideos } from '../store/slice';
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		dispatch(getHomePageVideo(false));
+		dispatch(getHomePageVideos(false));
 		console.log(videos);
 	}, [dispatch]);
 
@@ -32,7 +32,7 @@ const Home = () => {
 				{videos.length ? (
 					<InfiniteScroll 
 						dataLength={videos.length} 
-						next={() => dispatch(getHomePageVideo(true))}
+						next={() => dispatch(getHomePageVideos(true))}
 						hasMore={videos.length < 500}
 						loader={<Spinner />}
 						height={650}

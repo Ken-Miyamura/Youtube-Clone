@@ -7,9 +7,8 @@ type Data = {
 }
 
 const Card = ({data}: Data) => {
-	const isData = data ? true : false;
-  return (
-    <div className="w-64 h-60 flex gap-3 flex-col">
+	return (
+    <div className="flex gap-3">
 			<div className="relative">
 				<span className="absolute bottom-3 right-3 text-sm bg-grey-900 px-2 py-0.5 z-10">
 					{data.videoDuration}

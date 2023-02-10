@@ -5,7 +5,7 @@ import { parseData } from "../../utils";
 import { API_KEY, YOUTUBE_API_URL } from "../../utils/const";
 import { RootState } from '../index';
 
-export const getHomePageVideo = createAsyncThunk(
+export const getHomePageVideos = createAsyncThunk(
   "youtubeApp/homePageVideos",
 	async (isNext: boolean, { getState }) => {
 		const {youtubeApp: { nextPageToken: nextPageTokenFromState, videos }} = getState() as RootState;
